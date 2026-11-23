@@ -15,6 +15,6 @@ pip install -r requirements.txt
 python src/01_dados.py   # baixa o HMDA 2025, checa integridade e gera o Parquet
 ```
 
-Os dados **não** ficam no repositório: vão para `~/hmda_dados` (fora do OneDrive).
+Os dados ficam em `data/`, que está no `.gitignore` (não sobem para o GitHub).
 
 Fonte: [FFIEC HMDA Snapshot National Loan-Level Dataset](https://ffiec.cfpb.gov/data-publication/snapshot-national-loan-level-dataset).

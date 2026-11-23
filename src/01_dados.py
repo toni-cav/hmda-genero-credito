@@ -7,8 +7,8 @@ from datetime import date
 
 import duckdb
 
-# Pasta dos dados (fora do OneDrive, pois são vários GB)
-PASTA = os.path.expanduser("~/hmda_dados")
+# Pasta dos dados: hmda-genero-credito/data (não vai para o GitHub, ver .gitignore)
+PASTA = os.path.join(os.path.dirname(__file__), "..", "data")
 os.makedirs(PASTA, exist_ok=True)
 
 URL = "https://files.ffiec.cfpb.gov/static-data/snapshot/2025/"

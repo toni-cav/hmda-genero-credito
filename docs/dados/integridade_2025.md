@@ -21,7 +21,7 @@ Valores inesperados ao converter códigos para inteiro: nenhum ✅
 
 ## Parquet gerado
 
-- Arquivo: `~/hmda_dados/hmda_2025.parquet` (fora do repositório)
+- Arquivo: `data/hmda_2025.parquet` (ignorado pelo Git)
 - 13,543,606 linhas × 75 colunas, 472 MB (zstd)
 - Colunas descartadas: campos de múltipla resposta `*_2` a `*_5` e `multifamily_affordable_units`
 
