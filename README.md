@@ -12,7 +12,9 @@ python -m venv <caminho-do-venv>
 <caminho-do-venv>\Scripts\Activate.ps1
 pip install -r requirements.txt
 
-python src/01_dados.py   # baixa o HMDA 2025, checa integridade e gera o Parquet
+# Depois, rodar os notebooks em ordem:
+#   notebooks/01_dados.ipynb    -> baixa o HMDA 2025, checa integridade e gera o Parquet
+#   notebooks/02_amostra.ipynb  -> filtros, fluxograma e tratamento de faltantes
 ```
 
 Os dados ficam em `data/`, que está no `.gitignore` (não sobem para o GitHub).

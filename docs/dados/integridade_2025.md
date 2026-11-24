@@ -1,6 +1,6 @@
 # Integridade dos dados — HMDA 2025
 
-Fonte: HMDA Snapshot National Loan-Level Dataset 2025 (FFIEC), arquivo `2025_public_lar_csv.zip` publicado em 23/06/2026, baixado em 23/11/2026 por `src/01_dados.py`.
+Fonte: HMDA Snapshot National Loan-Level Dataset 2025 (FFIEC), arquivo `2025_public_lar_csv.zip` publicado em 23/06/2026, baixado em 23/11/2026 pelo notebook `notebooks/01_dados.ipynb`.
 
 ## Verificações
 

@@ -1,9 +1,5 @@
 # Protocolo de Análise — Gênero e Crédito Imobiliário (HMDA 2025)
 
-> **Status:** rascunho para revisão
-> **Data de registro:** _AAAA-MM-DD (preencher na data do commit final)_
-> **Referência:** issue #1
-
 Este documento fixa, **antes de qualquer análise dos dados**, a pergunta de pesquisa, as hipóteses, as métricas e os critérios de amostra. Toda alteração posterior deve ser registrada na seção [Registro de alterações](#7-registro-de-alterações), com data e justificativa.
 
 ---
