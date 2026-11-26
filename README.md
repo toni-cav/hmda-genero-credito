@@ -19,6 +19,7 @@ Rodar em ordem, a partir da pasta `notebooks/`:
 | `04_regressao_logistica.ipynb` | Etapa B (#5) | Regressão logística com controles e efeitos fixos (H1) |
 | `05_gradient_boosting.ipynb` | Etapa D (#6) | Modelos de crédito com e sem gênero (H2) |
 | `06_fairness.ipynb` | Etapa E (#7) | Métricas de fairness: paridade demográfica, disparate impact e diferença condicional |
+| `07_proxies.ipynb` | Etapa F (#8) | Proxies de gênero: classificador de gênero e SHAP |
 
 ## Estrutura
 
