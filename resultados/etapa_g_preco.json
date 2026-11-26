@@ -1,0 +1,35 @@
+[
+  {
+    "desfecho": "rate_spread",
+    "n_obs": 3032916,
+    "n_instituicoes": 2552,
+    "coef_mulher": -0.035596794977455805,
+    "ep_cluster_lei": 0.007447750658641639,
+    "ic95_inf": -0.05019411803422788,
+    "ic95_sup": -0.020999471920683726,
+    "p_valor": 1.7569990772788689e-06,
+    "formula": "rate_spread ~ mulher + log_income + log_loan_amount + ltv + C(dti_cat) + C(loan_type_cat) | state_code + lei"
+  },
+  {
+    "desfecho": "interest_rate",
+    "n_obs": 3204322,
+    "n_instituicoes": 2678,
+    "coef_mulher": -0.035140527671699326,
+    "ep_cluster_lei": 0.007800291724474674,
+    "ic95_inf": -0.050428818520575514,
+    "ic95_sup": -0.019852236822823135,
+    "p_valor": 6.636438997793416e-06,
+    "formula": "interest_rate ~ mulher + log_income + log_loan_amount + ltv + C(dti_cat) + C(loan_type_cat) | state_code + lei"
+  },
+  {
+    "desfecho": "total_loan_costs",
+    "n_obs": 2417583,
+    "n_instituicoes": 2570,
+    "coef_mulher": 95.3681417680302,
+    "ep_cluster_lei": 14.361554437704534,
+    "ic95_inf": 67.22001230811793,
+    "ic95_sup": 123.51627122794247,
+    "p_valor": 3.125854607874295e-11,
+    "formula": "total_loan_costs ~ mulher + log_income + log_loan_amount + ltv + C(dti_cat) + C(loan_type_cat) | state_code + lei"
+  }
+]

@@ -6,6 +6,7 @@ pyarrow==26.0.1
 
 # Estatística e ML
 statsmodels==0.15.0
+pyfixest==0.70.0
 scikit-learn==1.9.1
 shap==0.54.1
 fairlearn==0.15.0
