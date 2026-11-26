@@ -13,15 +13,13 @@ import pyfixest as pf
 from scipy.special import expit
 from scipy.stats import norm
 
-# --------------------------------------------------------------------------- #
 # Caminhos e parâmetros
-# --------------------------------------------------------------------------- #
 
 RAIZ = next(p for p in Path(__file__).resolve().parents if (p / "data").exists())
 ARQUIVO_DADOS = RAIZ / "data" / "amostra_principal.parquet"
 PASTA_SAIDA = RAIZ / "resultados"
 
-AMOSTRA_TESTE = None  # Ex.: 200_000 para teste rápido; None roda a base completa
+AMOSTRA_TESTE = None
 SEMENTE = 42
 Z95 = norm.ppf(0.975)
 WINSOR_LTV = (0.001, 0.999)
@@ -37,9 +35,7 @@ TIPO_NIVEIS = ["1", "2", "3", "4"]
 IDADE_NIVEIS = ["25-34", "<25", "35-44", "45-54", "55-64", "65-74", ">74"]
 
 
-# --------------------------------------------------------------------------- #
 # 1. Preparação dos dados
-# --------------------------------------------------------------------------- #
 
 def _registrar_corte(df_corte: pd.DataFrame, etapa: str, n_restante: int) -> dict:
     n = len(df_corte)
@@ -211,9 +207,7 @@ def estimar_especificacao(spec: dict, rotulos: dict) -> tuple[dict, pd.DataFrame
     return resumo, tab_coefs
 
 
-# --------------------------------------------------------------------------- #
 # 3. Formatação da tabela Markdown
-# --------------------------------------------------------------------------- #
 
 def gerar_markdown(res: pd.DataFrame) -> str:
     fmt = lambda x, c: f"{x:.{c}f}".replace(".", ",")
