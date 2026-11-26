@@ -1,0 +1,15 @@
+{
+  "executado_em": "2026-11-26T02:35:16",
+  "dados": "C:\\Users\\opedr\\OneDrive\\Desktop\\icd trabalho\\hmda-genero-credito\\data\\amostra_principal.parquet",
+  "amostra_teste": null,
+  "semente": 42,
+  "proporcao_teste": 0.3,
+  "features_base": [
+    "log_income",
+    "ltv",
+    "dti",
+    "loan_type",
+    "state_code",
+    "applicant_age"
+  ]
+}
