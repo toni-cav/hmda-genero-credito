@@ -11,10 +11,9 @@ scikit-learn==1.9.1
 shap==0.54.1
 fairlearn==0.15.0
 
-# Gráficos e notebooks
+# Gráficos, tabelas e notebooks
 matplotlib==3.11.2
 seaborn==0.13.2
+tabulate
 ipykernel==7.4.0
-
-# Notebooks
 jupyter
