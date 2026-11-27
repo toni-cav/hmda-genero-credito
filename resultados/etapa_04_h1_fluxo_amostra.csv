@@ -1,0 +1,6 @@
+etapa,removidas,negacoes_removidas,taxa_negacao_removidas,pct_mulher_removidas,n_restante
+Amostra principal (entrada),0,0,,,1547246
+Renda <= 0 (log indefinido),7111,4627,0.6506820419069048,0.37449022640978763,1540135
+"LTV winsorizado em [13.99, 115.52] (nenhuma linha removida)",0,0,,,1540135
+state_code faltante,7167,6925,0.9662341286451793,0.5080228826566207,1532968
+applicant_age faltante,83,67,0.8072289156626506,0.42168674698795183,1532885

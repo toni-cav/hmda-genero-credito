@@ -1,0 +1,29 @@
+> Saída de uma execução anterior. O código agora usa semente 444; reexecute a etapa para atualizar os resultados.
+
+## Testes A, B e C: odds ratio do gênero (especificação 5 e variações)
+
+| Teste   | Especificação                       |       N |   % mulheres | OR (IC 95%)          |   p-valor |
+|:--------|:------------------------------------|--------:|-------------:|:---------------------|----------:|
+| A       | (5) Referência                      | 1514115 |         38.9 | 1.005 (0.980; 1.032) |     0.678 |
+| A       | A1: + raça e etnia                  | 1514115 |         38.9 | 0.963 (0.942; 0.985) |     0.001 |
+| A       | A2: + valor, pré-fabricada e bairro | 1514115 |         38.9 | 0.999 (0.973; 1.025) |     0.929 |
+| A       | A3: + todas as variáveis novas      | 1514115 |         38.9 | 0.967 (0.945; 0.988) |     0.003 |
+| B       | Tipo: Convencional                  |  974007 |         40.1 | 0.981 (0.948; 1.015) |     0.271 |
+| B       | Tipo: FHA                           |  365697 |         43.8 | 1.054 (1.019; 1.091) |     0.003 |
+| B       | Tipo: VA                            |  139863 |         18.3 | 1.088 (1.022; 1.158) |     0.008 |
+| B       | Renda baixa                         |  508158 |         46.5 | 0.974 (0.944; 1.006) |     0.11  |
+| B       | Renda média                         |  493987 |         38.7 | 0.999 (0.966; 1.034) |     0.969 |
+| B       | Renda alta                          |  486073 |         31.4 | 1.044 (1.012; 1.077) |     0.006 |
+| B       | Região: Nordeste                    |  188757 |         40.5 | 0.977 (0.934; 1.022) |     0.308 |
+| B       | Região: Meio-Oeste                  |  335349 |         38.9 | 0.987 (0.955; 1.020) |     0.444 |
+| B       | Região: Sul                         |  714637 |         38.9 | 1.029 (0.994; 1.066) |     0.109 |
+| B       | Região: Oeste                       |  260268 |         37.4 | 0.971 (0.941; 1.003) |     0.079 |
+| C       | C: base com faltantes preenchidos   | 1718555 |         39.4 | 1.023 (0.986; 1.061) |     0.223 |
+
+## Teste D: modelo de crédito sem gênero com variáveis novas
+
+|               |   AUC-ROC |   PR-AUC |   Dif. nas probabilidades (p.p.) |   Dif. nas decisões (p.p.) |
+|:--------------|----------:|---------:|---------------------------------:|---------------------------:|
+| Original      |    0.7867 |   0.5444 |                           1.6462 |                     3.6556 |
+| Ampliado      |    0.8084 |   0.5773 |                           1.5792 |                     3.041  |
+| Bancos (real) |  nan      | nan      |                         nan      |                     1.4084 |

@@ -1,6 +1,6 @@
 # Protocolo de Análise — Gênero e Crédito Imobiliário (HMDA 2025)
 
-Este documento fixa, **antes de qualquer análise dos dados**, a pergunta de pesquisa, as hipóteses, as métricas e os critérios de amostra. Toda alteração posterior deve ser registrada na seção [Registro de alterações](#7-registro-de-alterações), com data e justificativa.
+Este protocolo define a pergunta, as hipóteses, as métricas e os critérios da amostra. Registre alterações posteriores na seção [Registro de alterações](#7-registro-de-alterações), com data e justificativa.
 
 ---
 
@@ -25,13 +25,13 @@ Todas as hipóteses são **bidirecionais** (testam diferença, não direção), 
 ### 3.1 Inferência estatística (Etapas B e G)
 
 - **Odds ratio** do gênero (`exp(β_gênero)`) com IC 95%.
-- **Efeito marginal médio (AME)** do gênero, em pontos percentuais de probabilidade de negação.
+- **Efeito em pontos percentuais:** o notebook principal reporta o coeficiente do modelo linear de probabilidade (MPL), com IC clusterizado; o script da Etapa B também calcula o AME do logit como análise complementar.
 - **Erros-padrão clusterizados por instituição** (`lei`).
 - Nível de significância: **α = 0,05**. Resultados são reportados com IC, não apenas com p-valor.
 
 ### 3.2 Performance dos modelos preditivos (Etapa D)
 
-- Divisão treino/teste **70/30, estratificada pelo alvo e pelo gênero**, com `random_state = 42`, **idêntica** para os modelos com e sem gênero.
+- Divisão treino/teste 70/30, estratificada pelo alvo e pelo gênero, com `random_state = 444`. Os dois modelos usam a mesma divisão.
 - Métricas no conjunto de teste: **AUC-ROC** (principal), **PR-AUC** (o alvo é desbalanceado) e **Brier score**.
 - Limiar de classificação: escolhido **no treino** (validação cruzada) para que a taxa prevista de negação seja igual à taxa observada. O mesmo critério é usado nos dois modelos.
 
@@ -78,7 +78,7 @@ Cada filtro é aplicado em sequência. O número de linhas removidas em cada pas
 **Valores faltantes** (renda, `debt_to_income_ratio`, `combined_loan_to_value_ratio`, incluindo `NA` e `Exempt`):
 
 - **Base principal:** apenas casos completos.
-- **Base de robustez:** imputação (mediana por estrato) **e** indicador de faltante, para avaliar se a exclusão afeta os resultados (issue #12).
+- **Base alternativa:** imputação pela mediana e indicadores de faltantes, para avaliar o efeito da exclusão (issue #12).
 - A taxa de ausência por gênero e por `action_taken` será reportada, pois a ausência provavelmente **não é aleatória** (por exemplo, DTI pode faltar mais em pedidos negados).
 
 **Codificação de variáveis:** `debt_to_income_ratio` é publicado em faixas no HMDA e será tratado como **categórico**. `income` está em milhares de US$ e será usado em log.
@@ -100,7 +100,7 @@ Cada filtro é aplicado em sequência. O número de linhas removidas em cada pas
 
 ## 7. Registro de alterações
 
-Decisões tomadas durante a Etapa B (H1) que o protocolo original não previa ou que especificam algo que ele deixou em aberto. Todas foram tomadas **depois** de ver os dados e, portanto, são **pós-hoc**. Quando há impacto sobre a amostra, os números vêm de `resultados/h1_fluxo_amostra.csv`.
+Decisões tomadas durante a Etapa B (H1) que o protocolo original não previa ou que especificam algo que ele deixou em aberto. Todas foram tomadas **depois** de ver os dados e, portanto, são **pós-hoc**. Quando há impacto sobre a amostra, os números vêm de `resultados/etapa_04_h1_fluxo_amostra.csv`.
 
 | # | Data | Alteração | Justificativa | Impacto |
 |---|---|---|---|---|
@@ -110,9 +110,9 @@ Decisões tomadas durante a Etapa B (H1) que o protocolo original não previa ou
 | 4 | 2026-11-26 | Categorias de referência: DTI `<20%`, tipo de empréstimo 1 (convencional) e, em E1, faixa etária 25-34. | Escolha de parametrização, que o protocolo não definiu. | Não altera o coeficiente de gênero, só a leitura dos coeficientes dos controles. |
 | 5 | 2026-11-26 | O AME é calculado pelo método dos contrafactuais, com IC por método delta e vcov clusterizada. Nas especificações com efeitos fixos, os efeitos fixos entram como conhecidos (IC aproximado). Foi adicionado um modelo linear de probabilidade (MPL) com os mesmos controles e efeitos fixos como verificação. | O protocolo (seção 3.1) pede AME com erros clusterizados, mas não define o cálculo com efeitos fixos. | Na validação sem efeitos fixos, o resultado é idêntico ao do `statsmodels`. Com efeitos fixos, o MPL difere do AME do logit em no máximo 0,05 p.p. no ponto estimado. |
 | 6 | 2026-11-26 | Estimação com `pyfixest` 0.70.0 (efeitos fixos absorvidos). O estimador descarta singletons e instituições/estados sem variação no desfecho (separação). | Inviável incluir cerca de 2.400 dummies de instituição em 1,5 milhão de linhas. | Especificações (4), (5) e E1: 89 singletons e 18.681 linhas por separação; permanecem 1.817 das 2.435 instituições (N = 1.514.115). As especificações (1) a (3) usam 1.532.885 linhas. |
-| 7 | 2026-11-26 | Análises **exploratórias** adicionadas e identificadas como tais na tabela: **S1** (especificação 4 sem exigir `state_code`/`applicant_age`), **S2** (especificação 5 com todas as linhas: estado ausente como categoria própria e indicador de renda <= 0) e **E1** (especificação 5 + faixa etária). | S1 e S2 avaliam se as exclusões dos itens 1 e 3 afetam a conclusão. E1 avalia a sensibilidade a um controle que não está em H1. S2 é diferente da base de robustez com imputação da seção 4 (issue #12), que continua pendente. | S1: OR 1,017 (0,992; 1,044). S2: OR 1,006 (0,981; 1,032). E1: OR 0,974 (0,948; 1,000), p = 0,050. Especificação principal (5): OR 1,005 (0,980; 1,032), p = 0,678. |
+| 7 | 2026-11-26 | Análises exploratórias adicionadas: S1 (especificação 4 sem exigir `state_code` ou `applicant_age`), S2 (especificação 5 com todas as linhas, estado ausente como categoria e indicador de renda <= 0) e E1 (especificação 5 com faixa etária). | S1 e S2 avaliam o efeito das exclusões dos itens 1 e 3. E1 testa um controle não previsto em H1. S2 difere da análise com imputação da base alternativa, que continua pendente (issue #12). | S1: OR 1,017 (0,992; 1,044). S2: OR 1,006 (0,981; 1,032). E1: OR 0,974 (0,948; 1,000), p = 0,050. Especificação principal (5): OR 1,005 (0,980; 1,032), p = 0,678. |
 
-| 8 | 2026-11-26 | Os scripts das Etapas B e D foram convertidos para os notebooks `04_regressao_logistica.ipynb` e `05_gradient_boosting.ipynb`, seguindo o formato das aulas. Na Etapa B, o efeito em p.p. passa a ser reportado pelo MPL (com IC clusterizado), sem o cálculo do AME por método delta; as sensibilidades S1 e S2 saem do notebook e passam para a issue #12 (robustez). Na Etapa D, os hiperparâmetros passam a ser escolhidos por `GridSearchCV` (`scoring='roc_auc'`, 3 folds, amostra de 100 mil pedidos do treino), e foi adicionada uma regressão logística como modelo de comparação. | Padronizar o projeto no formato dos notebooks da disciplina. O MPL difere do AME em no máximo 0,05 p.p. (item 5). | Etapa B: resultados idênticos aos do script (especificação 5: OR 1,005; p = 0,678). Etapa D: `learning_rate = 0.05`, `max_leaf_nodes = 15`; AUC 0,787 (antes 0,789). |
-| 9 | 2026-11-26 | Robustez (`08_robustez.ipynb`, issue #12): especificação (5) com controles extras (raça, etnia, valor do empréstimo, casa pré-fabricada, bairro), por subgrupo (tipo de empréstimo, terço de renda, região do censo) e na base com faltantes preenchidos; modelo de crédito sem gênero com as variáveis extras (sem raça). Comparação com HMDA 2024 não realizada. | Verificar se as conclusões dependem de variáveis omitidas, de subgrupos ou do tratamento de faltantes. Análises **exploratórias**; nos subgrupos, considerar correção para comparações múltiplas (Bonferroni, α = 0,005). | Com raça e etnia: OR 0,963 (0,942; 0,985), p = 0,001. Subgrupos significativos a 5%: FHA (1,054), VA (1,088), renda alta (1,044); só FHA passa em Bonferroni. Base com faltantes preenchidos: OR 1,023, p = 0,22. Modelo ampliado: AUC 0,808; diferença nas decisões 3,04 p.p. (antes 3,66). |
+| 8 | 2026-11-26 | Os notebooks `04_regressao_logistica_h1.ipynb` e `05_modelagem_h2.ipynb` apresentam as análises principais; os scripts em `code/scripts/` permitem executá-las pela linha de comando. Na Etapa B, o efeito principal em p.p. vem do MPL, e o script também calcula o AME. As análises S1 e S2 são exploratórias. Na Etapa D, o `GridSearchCV` escolhe hiperparâmetros com AUC-ROC, três folds e uma amostra de 100 mil pedidos do treino. Também comparamos com regressão logística. | Manter a explicação nos notebooks e a execução modular nos scripts. O MPL difere do AME em até 0,05 p.p. (item 5). | Etapa B: especificação 5 com OR 1,005 e p = 0,678. Etapa D: `learning_rate = 0.05`, `max_leaf_nodes = 15`; AUC 0,787 (antes 0,789). |
+| 9 | 2026-11-26 | Robustez (`code/notebooks/08_robustez.ipynb`): especificação (5) com controles extras (raça, etnia, valor do empréstimo, casa pré-fabricada, bairro), por subgrupo (tipo de empréstimo, terço de renda, região do censo) e na base com faltantes preenchidos; modelo de crédito sem gênero com as variáveis extras (sem raça). Comparação com HMDA 2024 não realizada. | Verificar se as conclusões dependem de variáveis omitidas, de subgrupos ou do tratamento de faltantes. Análises **exploratórias**; nos subgrupos, considerar correção para comparações múltiplas (Bonferroni, α = 0,005). | Com raça e etnia: OR 0,963 (0,942; 0,985), p = 0,001. Subgrupos significativos a 5%: FHA (1,054), VA (1,088), renda alta (1,044); só FHA passa em Bonferroni. Base com faltantes preenchidos: OR 1,023, p = 0,22. Modelo ampliado: AUC 0,808; diferença nas decisões 3,04 p.p. (antes 3,66). |
 
-**Reprodutibilidade:** código nos notebooks da pasta `notebooks/` (sementes fixadas em 42) e tabelas de resultados em `resultados/`. Os dados foram baixados em 23/11/2026 (ver `docs/dados/integridade_2025.md`).
+**Reprodutibilidade:** notebooks em `code/notebooks/`, scripts em `code/scripts/` e testes em `tests/`. O código usa semente 444. Os dados foram baixados em 23/11/2026 (ver `docs/dados/integridade_2025.md`). Os resultados registrados neste protocolo e no relatório são de execuções anteriores; reexecute as etapas para atualizá-los com a nova seed.

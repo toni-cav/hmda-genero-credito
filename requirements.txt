@@ -5,11 +5,11 @@ pandas==3.1.1
 pyarrow==26.0.1
 
 # Estatística e ML
-statsmodels==0.15.0
 pyfixest==0.70.0
 scikit-learn==1.9.1
+scipy
+joblib
 shap==0.54.1
-fairlearn==0.15.0
 
 # Gráficos, tabelas e notebooks
 matplotlib==3.11.2

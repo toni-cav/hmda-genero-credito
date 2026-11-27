@@ -1,23 +1,23 @@
 # Integridade dos dados — HMDA 2025
 
-Fonte: HMDA Snapshot National Loan-Level Dataset 2025 (FFIEC), arquivo `2025_public_lar_csv.zip` publicado em 23/06/2026, baixado em 23/11/2026 pelo notebook `notebooks/01_dados.ipynb`.
+Fonte: HMDA Snapshot National Loan-Level Dataset 2025 (FFIEC), arquivo `2025_public_lar_csv.zip` publicado em 23/06/2026, baixado em 23/11/2026 pelo notebook `code/notebooks/01_dados.ipynb`.
 
 ## Verificações
 
-| Verificação | Resultado | |
-|---|---|---|
-| Linhas no LAR | 13,543,606 | |
-| Soma de `lar_count` no Transmittal Sheet | 13,543,606 | ✅ |
-| Colunas no LAR (esperado 99) | 99 | ✅ |
-| Instituições (LEI distintos) no LAR | 4,782 | |
-| Instituições no Transmittal Sheet | 4,782 | ✅ |
-| LEIs do LAR ausentes do TS | 0 | ✅ |
-| LEIs do TS sem linhas no LAR | 0 | ✅ |
-| Instituições com `lar_count` ≠ linhas no LAR | 0 | ✅ |
-| `activity_year` presentes | 2025 | ✅ |
-| Linhas no Parquet = linhas no CSV | 13,543,606 | ✅ |
+| Verificação | Resultado |
+|---|---:|
+| Linhas no LAR | 13,543,606 |
+| Soma de `lar_count` no Transmittal Sheet | 13,543,606 |
+| Colunas no LAR (esperado: 99) | 99 |
+| Instituições distintas no LAR | 4,782 |
+| Instituições no Transmittal Sheet | 4,782 |
+| LEIs do LAR ausentes do TS | 0 |
+| LEIs do TS sem linhas no LAR | 0 |
+| Instituições com `lar_count` diferente do total no LAR | 0 |
+| `activity_year` encontrados | 2025 |
+| Linhas no Parquet e no CSV | 13,543,606 |
 
-Valores inesperados ao converter códigos para inteiro: nenhum ✅
+Nenhum código inesperado foi encontrado ao converter os campos para inteiro.
 
 ## Parquet gerado
 

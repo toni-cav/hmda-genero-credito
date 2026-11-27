@@ -2,12 +2,15 @@
 
 ## Diretórios
 - `data/`: Datasets brutos e processados (NUNCA altere os arquivos originais nem imprima tabelas inteiras).
-- `notebooks/`: Rascunhos e Análise Exploratória de Dados (EDA) em `.ipynb`.
-- `code/scripts/`: Todos os scripts `.py` modulares do projeto (limpeza, engenharia de features, treino e avaliação). Não coloque scripts `.py` soltos direto em `code/`.
+- `code/notebooks/`: Notebooks numerados que documentam as etapas acadêmicas e exploratórias.
+- `code/scripts/`: Scripts executáveis e funções compartilhadas de limpeza, features, treino e avaliação.
 - `figuras/`: Gráficos exportados em PNG/PDF (300 dpi) para o relatório.
-- `resultados/`: Métricas salvas (CSV/JSON) e predições dos modelos.
-- `docs/`: Relatório final e documentação acadêmica.
+- `resultados/`: Tabelas e métricas versionáveis; modelos e predições grandes são artefatos locais.
+- `docs/`: Protocolo, dados e documentação acadêmica.
 
 ## Convenções de Execução e Caminhos
-- Sempre assuma que os comandos são executados a partir da **raiz do projeto** (ex.: `python code/scripts/treino.py`), usando caminhos relativos como `data/arquivo.csv` e `figuras/grafico.png`.
-- Ao finalizar uma análise em `notebooks/`, extraia as funções reutilizáveis para `code/scripts/`.
+- Execute scripts a partir da **raiz do projeto** (ex.: `python code/scripts/09_precificacao_h3.py`), usando caminhos relativos como `data/arquivo.parquet` e `figuras/grafico.png`.
+- Abra os notebooks em `code/notebooks/`; eles identificam a raiz do repositório e normalizam o diretório de trabalho.
+- Extraia lógica reutilizável de notebooks para `code/scripts/` e importe-a nos notebooks, evitando cópias divergentes.
+- Preserve os contratos dos artefatos entre etapas. A Etapa D grava `resultados/etapa_05_h2_modelos.joblib` e `resultados/etapa_05_h2_predicoes_teste.parquet`; as etapas posteriores dependem desses nomes e do formato versionado do modelo.
+- Não altere dados originais nem registre datasets, modelos ou predições grandes no Git.

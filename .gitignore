@@ -1,7 +1,6 @@
 # Dados (ficam fora do repo, mas por segurança)
 data/
 *.zip
-*.csv
 *.parquet
 
 # Python
